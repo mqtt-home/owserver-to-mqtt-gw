@@ -1,0 +1,12 @@
+{
+	"server": "http://localhost:2121",
+	"mqtt-url": "tcp://localhost:1883",
+	
+	"message-interval": 60,
+	"full-message-topic": "sensordata",
+	
+	"sensors": {
+		"28.FF1122334455": "home/sensor_a",
+		"28.FF2233445566": "home/sensor_b",
+	}
+}

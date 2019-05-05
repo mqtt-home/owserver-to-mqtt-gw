@@ -6,6 +6,8 @@ This project converts temperature sensor messages from the OWServer to mqtt.
 
 Checkout `production` and place a configuration in the config folder.
 
+Run `docker-compose up` to start
+
 ## Configuration
 See [example configuration](config-example.json)
 

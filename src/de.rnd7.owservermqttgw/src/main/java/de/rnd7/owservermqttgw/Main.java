@@ -9,7 +9,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -20,6 +19,8 @@ import com.google.common.eventbus.EventBus;
 import de.rnd7.owservermqttgw.config.Config;
 import de.rnd7.owservermqttgw.config.ConfigParser;
 import de.rnd7.owservermqttgw.messages.FullMessage;
+import de.rnd7.owservermqttgw.messages.Message;
+import de.rnd7.owservermqttgw.messages.SensorJsonMessage;
 import de.rnd7.owservermqttgw.messages.SensorMessage;
 import de.rnd7.owservermqttgw.mqtt.GwMqttClient;
 
@@ -57,12 +58,29 @@ public class Main {
 		final FullMessage full = new FullMessage(this.config.getFullMessageTopic());
 		
 		for (Sensor sensor : this.config.getSensors()) {
-			SensorMessage message = new SensorMessage(sensor.getName(), Double.parseDouble(readSensor(this.config, sensor)));
-			this.eventBus.post(message);
-			full.add(message);
+			double value = read(sensor);
+			
+			this.eventBus.post(createMessage(sensor, value));
+			
+			full.add(new SensorMessage(sensor.getName(), value));
 		}
 		
-		this.eventBus.post(full);
+		if (config.sendFullMessage()) {
+			this.eventBus.post(full);
+		}
+	}
+
+	private Message createMessage(Sensor sensor, double value) {
+		if (config.isJsonMessages()) {
+			return new SensorJsonMessage(sensor.getName(), value);
+		}
+		else {
+			return new SensorMessage(sensor.getName(), value);
+		}
+	}
+
+	private double read(Sensor sensor) {
+		return Double.parseDouble(readSensor(this.config, sensor));
 	}
 	
 	private void sleep() {

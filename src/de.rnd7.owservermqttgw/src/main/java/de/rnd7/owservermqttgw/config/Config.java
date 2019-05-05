@@ -12,7 +12,17 @@ public class Config {
 	
 	private List<Sensor> sensors = new ArrayList<>();
 	private Duration pollingInterval;
-	private String fullMessageTopic; 
+	private String fullMessageTopic;
+	
+	private boolean jsonMessages = true;
+	
+	public boolean isJsonMessages() {
+		return jsonMessages;
+	}
+	
+	public void setJsonMessages(boolean jsonMessages) {
+		this.jsonMessages = jsonMessages;
+	}
 	
 	public void setServer(String server) {
 		this.server = server;
@@ -52,6 +62,11 @@ public class Config {
 	
 	public String getFullMessageTopic() {
 		return this.fullMessageTopic;
+	}
+
+
+	public boolean sendFullMessage() {
+		return fullMessageTopic != null;
 	}
 	
 }

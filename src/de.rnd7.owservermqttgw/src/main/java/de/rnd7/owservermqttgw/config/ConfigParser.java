@@ -15,6 +15,7 @@ import de.rnd7.owservermqttgw.Sensor;
 public class ConfigParser {
 	private static final String FULL_MESSAGE_TOPIC = "full-message-topic";
 	private static final String MESSAGE_INTERVAL = "message-interval";
+	private static final String MESSAGE_TYPE = "message-type";
 
 	private ConfigParser() {
 		
@@ -33,7 +34,13 @@ public class ConfigParser {
 		config.setServer(jsonObject.getString("server"));
 		config.setMqttBroker(jsonObject.getString("mqtt-url"));
 		config.setPollingInterval(Duration.ofSeconds(jsonObject.getInt(MESSAGE_INTERVAL)));
-		config.setFullMessageTopic(jsonObject.getString(FULL_MESSAGE_TOPIC));
+		
+		if (jsonObject.has(FULL_MESSAGE_TOPIC)) {
+			config.setFullMessageTopic(jsonObject.getString(FULL_MESSAGE_TOPIC));
+		}
+		
+		config.setJsonMessages(jsonObject.has(MESSAGE_TYPE) && jsonObject.getString(MESSAGE_TYPE).toLowerCase().equals("json"));
+		
 		
 		final JSONObject mapping = (JSONObject) jsonObject.get("sensors");
 		

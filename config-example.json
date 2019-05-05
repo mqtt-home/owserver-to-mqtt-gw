@@ -4,6 +4,7 @@
 	
 	"message-interval": 60,
 	"full-message-topic": "sensordata",
+	"message-type": "json",
 	
 	"sensors": {
 		"28.AABBCCDDEE01": "home/sensor1",

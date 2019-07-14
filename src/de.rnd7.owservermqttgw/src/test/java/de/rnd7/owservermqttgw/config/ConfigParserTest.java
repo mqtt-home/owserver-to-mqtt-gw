@@ -15,6 +15,8 @@ public class ConfigParserTest {
 		try (InputStream in = ConfigParserTest.class.getResourceAsStream("config-example.json")) {
 			Config config = ConfigParser.parse(in);
 			assertEquals("http://localhost:2121", config.getServer());
+			assertEquals("MaxMustermann", config.getUsername());
+			assertEquals("Geheim!", config.getPassword());
 			assertEquals(2, config.getSensors().size());
 		}
 	}

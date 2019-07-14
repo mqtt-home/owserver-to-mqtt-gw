@@ -9,6 +9,8 @@ import de.rnd7.owservermqttgw.Sensor;
 public class Config {
 	private String server;
 	private String mqttBroker;
+	private String mqttUsername = "";
+	private String mqttPassword = "";
 	
 	private List<Sensor> sensors = new ArrayList<>();
 	private Duration pollingInterval;
@@ -40,6 +42,22 @@ public class Config {
 		return this.mqttBroker;
 	}
 	
+	public void setUsername(final String username) {
+		this.mqttUsername = username;
+	}
+	
+	public String getUsername() {
+		return this.mqttUsername;
+	}
+	
+	public void setPassword(final String password) {
+		this.mqttPassword = password;
+	}
+	
+	public String getPassword() {
+		return this.mqttPassword;
+	}
+	
 	public void addSensor(Sensor sensor) {
 		sensors.add(sensor);
 	}
@@ -64,9 +82,7 @@ public class Config {
 		return this.fullMessageTopic;
 	}
 
-
 	public boolean sendFullMessage() {
 		return fullMessageTopic != null;
 	}
-	
 }

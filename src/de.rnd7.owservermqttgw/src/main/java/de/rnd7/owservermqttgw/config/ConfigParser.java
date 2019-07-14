@@ -16,6 +16,8 @@ public class ConfigParser {
 	private static final String FULL_MESSAGE_TOPIC = "full-message-topic";
 	private static final String MESSAGE_INTERVAL = "message-interval";
 	private static final String MESSAGE_TYPE = "message-type";
+	private static final String USERNAME = "username";
+	private static final String PASSWORD = "password";
 
 	private ConfigParser() {
 		
@@ -33,10 +35,17 @@ public class ConfigParser {
 		final JSONObject jsonObject = new JSONObject(IOUtils.toString(in, StandardCharsets.UTF_8));
 		config.setServer(jsonObject.getString("server"));
 		config.setMqttBroker(jsonObject.getString("mqtt-url"));
+		config.setPassword(jsonObject.getString(PASSWORD));
 		config.setPollingInterval(Duration.ofSeconds(jsonObject.getInt(MESSAGE_INTERVAL)));
 		
 		if (jsonObject.has(FULL_MESSAGE_TOPIC)) {
 			config.setFullMessageTopic(jsonObject.getString(FULL_MESSAGE_TOPIC));
+		}
+		if (jsonObject.has(USERNAME)) {
+			config.setUsername(jsonObject.getString(USERNAME));
+		}
+		if (jsonObject.has(PASSWORD)) {
+			config.setPassword(jsonObject.getString(PASSWORD));
 		}
 		
 		config.setJsonMessages(jsonObject.has(MESSAGE_TYPE) && jsonObject.getString(MESSAGE_TYPE).toLowerCase().equals("json"));

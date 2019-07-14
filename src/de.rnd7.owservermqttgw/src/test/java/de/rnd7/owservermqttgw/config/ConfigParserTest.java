@@ -15,9 +15,15 @@ public class ConfigParserTest {
 		try (InputStream in = ConfigParserTest.class.getResourceAsStream("config-example.json")) {
 			Config config = ConfigParser.parse(in);
 			assertEquals("http://localhost:2121", config.getServer());
-			assertEquals("MaxMustermann", config.getUsername());
-			assertEquals("Geheim!", config.getPassword());
+			assertEquals("MaxMustermann", config.getMqttCredentials().map(MqttCredentials::getUsername).orElse(null));
+			assertEquals("Geheim!", config.getMqttCredentials().map(MqttCredentials::getPassword).orElse(null));
 			assertEquals(2, config.getSensors().size());
 		}
+	}
+	
+	@Test
+	public void test_empty_credentials() throws Exception {
+		Config config = new Config();
+		assertFalse(config.getMqttCredentials().isPresent());
 	}
 }

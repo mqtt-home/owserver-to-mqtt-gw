@@ -15,6 +15,8 @@ See [example configuration](config-example.json)
 {
 	"server": "http://192.168.2.1:2121",
 	"mqtt-url": "tcp://192.168.2.2:1883",
+	"username": "myuser",
+	"password": "mypassword",
 	
 	"message-interval": 60,
 	"full-message-topic": "sensordata",
@@ -25,11 +27,14 @@ See [example configuration](config-example.json)
 		"28.AABBCCDDEE02": "home/sensor2"
 	}
 }
-````
+```
 
 | parameter          | description                                    |
+| ------------------ | ---------------------------------------------- |
 | server             | OWServer address                               |
 | mqtt-url           | MQTT Server                                    |
+| username           | Username to log into MQTT Server               |
+| passwort           | Password für MQTT Server                       |
 | message-interval   | in secounds                                    |
 | full-message-topic | (optional) send a full message for all sensors |
 | message-type       | (optional) json or plain                       |

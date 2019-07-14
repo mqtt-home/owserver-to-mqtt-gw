@@ -3,12 +3,15 @@ package de.rnd7.owservermqttgw.config;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import de.rnd7.owservermqttgw.Sensor;
 
 public class Config {
 	private String server;
 	private String mqttBroker;
+
+	private Optional<MqttCredentials> mqttCredentials=Optional.empty();
 	
 	private List<Sensor> sensors = new ArrayList<>();
 	private Duration pollingInterval;
@@ -40,6 +43,31 @@ public class Config {
 		return this.mqttBroker;
 	}
 	
+	public Optional<MqttCredentials> getMqttCredentials() {
+		return mqttCredentials;
+	}
+	
+	public void setUsername(final String username) {
+		initCredentials().setUsername(username);
+	}
+
+	private MqttCredentials initCredentials() {
+		final MqttCredentials c;
+		if (mqttCredentials.isPresent()) {
+			c = mqttCredentials.get();
+		}
+		else {
+			c = new MqttCredentials();
+			mqttCredentials = Optional.of(c);
+		}
+		return c;
+	}
+	
+	public void setPassword(final String password) {
+		initCredentials().setPassword(password);
+
+	}
+	
 	public void addSensor(Sensor sensor) {
 		sensors.add(sensor);
 	}
@@ -64,9 +92,7 @@ public class Config {
 		return this.fullMessageTopic;
 	}
 
-
 	public boolean sendFullMessage() {
 		return fullMessageTopic != null;
 	}
-	
 }

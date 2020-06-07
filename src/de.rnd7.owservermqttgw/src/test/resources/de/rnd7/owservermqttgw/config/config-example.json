@@ -1,6 +1,8 @@
 {
 	"server": "http://localhost:2121",
 	"mqtt-url": "tcp://localhost:1883",
+	"username": "MaxMustermann",
+	"password": "Geheim!",
 	
 	"message-interval": 60,
 	"full-message-topic": "sensordata",

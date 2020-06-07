@@ -60,9 +60,11 @@ public class Main {
 		for (Sensor sensor : this.config.getSensors()) {
 			double value = read(sensor);
 			
-			this.eventBus.post(createMessage(sensor, value));
-			
-			full.add(new SensorMessage(sensor.getName(), value));
+			if (value > -199) {
+				this.eventBus.post(createMessage(sensor, value));
+				
+				full.add(new SensorMessage(sensor.getName(), value));
+			}
 		}
 		
 		if (config.sendFullMessage()) {

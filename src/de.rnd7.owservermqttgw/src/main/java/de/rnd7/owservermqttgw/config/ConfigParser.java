@@ -35,7 +35,6 @@ public class ConfigParser {
 		final JSONObject jsonObject = new JSONObject(IOUtils.toString(in, StandardCharsets.UTF_8));
 		config.setServer(jsonObject.getString("server"));
 		config.setMqttBroker(jsonObject.getString("mqtt-url"));
-		config.setPassword(jsonObject.getString(PASSWORD));
 		config.setPollingInterval(Duration.ofSeconds(jsonObject.getInt(MESSAGE_INTERVAL)));
 		
 		if (jsonObject.has(FULL_MESSAGE_TOPIC)) {

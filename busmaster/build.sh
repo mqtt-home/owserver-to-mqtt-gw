@@ -2,6 +2,6 @@
 
 SCRIPTDIR="$(cd "$(dirname "$0")" && pwd)"
 
-echo "Building pharndt/1wire"
+echo "Building pharndt/ds9490r-owfs"
 cd $SCRIPTDIR
-docker build -t pharndt/1wire .
+docker build -t pharndt/ds9490r-owfs .

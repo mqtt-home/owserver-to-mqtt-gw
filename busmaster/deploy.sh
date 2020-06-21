@@ -1,2 +1,2 @@
 #!/bin/bash
-docker push pharndt/1wire:latest
+docker push pharndt/ds9490r-owfs:latest

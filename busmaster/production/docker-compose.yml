@@ -1,10 +1,10 @@
 version: '3.3'
 
 services:
-  1wire:
+  ds9490r-owfs:
     privileged: true # usb access
-    hostname: 1wire
-    image: pharndt/1wire
+    hostname: ds9490r-owfs
+    image: pharndt/ds9490r-owfs
     expose:
         - "2121"
     ports:

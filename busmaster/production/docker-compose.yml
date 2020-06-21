@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  1wire:
+    privileged: true # usb access
+    hostname: 1wire
+    image: pharndt/1wire
+    expose:
+        - "2121"
+    ports:
+        - "2121:2121"
+    volumes:
+     - /dev/bus/usb:/dev/bus/usb

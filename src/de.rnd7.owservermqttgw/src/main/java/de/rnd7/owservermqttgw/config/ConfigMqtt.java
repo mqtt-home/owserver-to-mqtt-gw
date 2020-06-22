@@ -8,18 +8,16 @@ public class ConfigMqtt {
     private String url;
     private String username;
     private String password;
-    private boolean retain = true;
-    @SerializedName("message-type")
-    private MessageType messageType = MessageType.json;
+    private boolean retain = false;
 
     @SerializedName("message-interval")
-    private Duration pollingInterval;
-
-    @SerializedName("full-message-topic")
-    private String fullMessageTopic;
+    private Duration pollingInterval = Duration.ofSeconds(60);
 
     @SerializedName("client-id")
-    private String clientId;
+    private String clientId = "owserver-mqtt-gw";
+
+    @SerializedName("qos")
+    private int qos = 2;
 
     public String getUrl() {
         return url;
@@ -33,10 +31,6 @@ public class ConfigMqtt {
         return Optional.ofNullable(password);
     }
 
-    public String getFullMessageTopic() {
-        return fullMessageTopic;
-    }
-
     public Duration getPollingInterval() {
         return pollingInterval;
     }
@@ -45,15 +39,12 @@ public class ConfigMqtt {
         return retain;
     }
 
-    public Optional<String> getClientId() {
-        return Optional.ofNullable(clientId);
+    public int getQos() {
+        return qos;
     }
 
-    public MessageType getMessageType() {
-        return messageType;
+    public String getClientId() {
+        return clientId;
     }
 
-    public boolean sendFullMessage() {
-        return false;
-    }
 }

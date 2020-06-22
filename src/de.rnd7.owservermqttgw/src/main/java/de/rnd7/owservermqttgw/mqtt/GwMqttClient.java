@@ -18,7 +18,6 @@ import de.rnd7.owservermqttgw.messages.Message;
 
 public class GwMqttClient {
 	private static final int QOS = 2;
-	private static final String CLIENTID = "heizung-mqtt-gw";
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GwMqttClient.class);
 
@@ -38,7 +37,7 @@ public class GwMqttClient {
 			ConfigMqtt mqtt = this.config.getMqtt();
 
 			LOGGER.info("Connecting MQTT client");
-			final MqttClient result = new MqttClient(mqtt.getUrl(), mqtt.getClientId().orElse(CLIENTID), this.persistence);
+			final MqttClient result = new MqttClient(mqtt.getUrl(), mqtt.getClientId(), this.persistence);
 
 			final MqttConnectOptions connOpts = new MqttConnectOptions();
 			connOpts.setCleanSession(true);
@@ -76,7 +75,8 @@ public class GwMqttClient {
 			this.client.ifPresent(mqttClient -> {
 				try {
 					final MqttMessage message = new MqttMessage(value.getBytes());
-					message.setQos(QOS);
+					message.setQos(this.config.getMqtt().getQos());
+					message.setRetained(this.config.getMqtt().isRetain());
 					mqttClient.publish(topic, message);
 				} catch (final MqttException e) {
 					LOGGER.error(e.getMessage(), e);

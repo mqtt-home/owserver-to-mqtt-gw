@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class Config {
 
-	private ConfigMqtt mqtt;
-	private ConfigOwServer owserver;
+	private ConfigMqtt mqtt = new ConfigMqtt();
+	private ConfigOwServer owserver = new ConfigOwServer();
 
 	public ConfigMqtt getMqtt() {
 		return mqtt;

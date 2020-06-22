@@ -1,16 +1,6 @@
 {
 	"mqtt": {
-		"url": "tcp://localhost:1883",
-
-		"message-interval": 60,
-
-		"username": "MaxMustermann",
-		"password": "Geheim!",
-
-		"client-id": "client-id",
-
-		"qos": 1,
-		"retain": true
+		"url": "tcp://localhost:1883"
 	},
 
 	"owserver": {

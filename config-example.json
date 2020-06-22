@@ -1,15 +1,26 @@
 {
-	"server": "http://192.168.2.1:2121",
-	"mqtt-url": "tcp://192.168.2.2:1883",
-	"username": "myuser",
-	"password": "mypassword",
-	
-	"message-interval": 60,
-	"full-message-topic": "sensordata",
-	"message-type": "json",
-	
-	"sensors": {
-		"28.AABBCCDDEE01": "home/sensor1",
-		"28.AABBCCDDEE02": "home/sensor2"
+	"mqtt": {
+		"url": "tcp://192.168.2.2:1883",
+
+		"username": "myuser",
+		"password": "mypassword",
+
+		"message-interval": 60,
+
+		"client-id": "owmqtt-example-user",
+
+		"retain": true,
+		"qos": 2
+	},
+
+	"owserver": {
+		"url": "http://192.168.2.1:2121",
+
+		"sensors": [
+			{ "uid": "28.AABBCCDDEE01", "topic": "home/temperature/sensor1"	},
+			{ "uid": "28.AABBCCDDEE02", "topic": "home/temperature/sensor2" },
+			{ "uid": "26.111111111111", "topic": "home/humidity/sensor1" }
+		]
 	}
+
 }

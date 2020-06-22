@@ -36,16 +36,16 @@ See [example configuration](config-example.json) for full example.
 
 # mqtt configuration
 
-| parameter        | description                      | default            |
-| ---------------- | -------------------------------- | ------------------ |
-| url              | MQTT Server                      |                    |
-| username         | Username to log into MQTT Server |                    |
-| password         | Password für MQTT Server         |                    |
-| message-interval | in secounds                      | `60`               |
-| client-id        |                                  | `owserver-mqtt-gw` |
-| retain           |                                  | `false`            |
-| qos              | 0, 1, 2                          | `2`                |
-|                  |                                  |                    |
+| parameter        | description                     | default            |
+| ---------------- | ------------------------------- | ------------------ |
+| url              | MQTT Server                     |                    |
+| username         | username for user/password auth | no authentication  |
+| password         | password for user/password auth | no authentication  |
+| message-interval | in secounds                     | `60`               |
+| client-id        |                                 | `owserver-mqtt-gw` |
+| retain           |                                 | `false`            |
+| qos              | 0, 1, 2                         | `2`                |
+|                  |                                 |                    |
 
 # owserver configuration
 

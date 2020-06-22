@@ -13,24 +13,24 @@ See [example configuration](config-example.json) for full example.
 
 ```json
 {
-	"mqtt": {
-		"url": "tcp://192.168.2.2:1883",
+  "mqtt": {
+    "url": "tcp://192.168.2.2:1883",
 
-		"username": "myuser",
-		"password": "mypassword",
+    "username": "myuser",
+    "password": "mypassword",
 
-		"message-interval": 60,
-	},
+    "message-interval": 60,
+  },
 
-	"owserver": {
-		"url": "http://192.168.2.1:2121",
+  "owserver": {
+    "url": "http://192.168.2.1:2121",
 
-		"sensors": [
-			{ "uid": "28.AABBCCDDEE01", "topic": "home/temperature/sensor1"	},
-			{ "uid": "28.AABBCCDDEE02", "topic": "home/temperature/sensor2" },
-			{ "uid": "26.111111111111", "topic": "home/humidity/sensor1" }
-		]
-	}
+    "sensors": [
+      { "uid": "28.AABBCCDDEE01", "topic": "home/temperature/sensor1"	},
+      { "uid": "28.AABBCCDDEE02", "topic": "home/temperature/sensor2" },
+      { "uid": "26.111111111111", "topic": "home/humidity/sensor1" }
+    ]
+  }
 }
 ```
 

@@ -2,18 +2,19 @@ package de.rnd7.owservermqttgw;
 
 public class Sensor {
 	private String uuid;
-	private String name;
+	private String topic;
 
-	public Sensor(String uuid, String name) {
+	public Sensor(String uuid, String topic) {
 		this.uuid = uuid;
-		this.name = name;
+		this.topic = topic;
 	}
 	
 	public String getUuid() {
 		return uuid;
 	}
 	
-	public String getName() {
-		return name;
+	public String getTopic() {
+		return topic;
 	}
+
 }

@@ -7,22 +7,40 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 import de.rnd7.owservermqttgw.Sensor;
 
 public class ConfigParser {
+	/*
 	private static final String FULL_MESSAGE_TOPIC = "full-message-topic";
 	private static final String MESSAGE_INTERVAL = "message-interval";
 	private static final String MESSAGE_TYPE = "message-type";
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
+*/
 
 	private ConfigParser() {
 		
 	}
-	
+	public static Config parse(final File file) throws IOException {
+		try (InputStream in = new FileInputStream(file)) {
+			return parse(in);
+		}
+	}
+
+	public static Config parse(final InputStream in) throws IOException {
+		final String json = IOUtils.toString(in, StandardCharsets.UTF_8);
+		final Gson gson = new GsonBuilder()
+				.registerTypeAdapter(Duration.class, new DurationDeserializer())
+				.create();
+
+		return gson.fromJson(json, Config.class);
+	}
+	/*
 	public static Config parse(final File file) throws IOException {
 		try (InputStream in = new FileInputStream(file)) {
 			return parse(in);
@@ -58,5 +76,5 @@ public class ConfigParser {
 		
 		return config;
 
-	}
+	}*/
 }

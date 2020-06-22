@@ -2,6 +2,7 @@ package de.rnd7.owservermqttgw.mqtt;
 
 import java.util.Optional;
 
+import de.rnd7.owservermqttgw.config.ConfigMqtt;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -25,7 +26,7 @@ public class GwMqttClient {
 	private final Object mutex = new Object();
 	private final Config config;
 
-	private Optional<MqttClient> client;
+	private Optional<MqttClient> client = Optional.empty();
 	
 	public GwMqttClient(final Config config) {
 		this.config = config;
@@ -34,22 +35,35 @@ public class GwMqttClient {
 	
 	private Optional<MqttClient> connect() {
 		try {
+			ConfigMqtt mqtt = this.config.getMqtt();
+
 			LOGGER.info("Connecting MQTT client");
-			final MqttClient result = new MqttClient(this.config.getMqttBroker(), CLIENTID, this.persistence);
+			final MqttClient result = new MqttClient(mqtt.getUrl(), mqtt.getClientId().orElse(CLIENTID), this.persistence);
+
 			final MqttConnectOptions connOpts = new MqttConnectOptions();
 			connOpts.setCleanSession(true);
-			
-			this.config.getMqttCredentials().ifPresent(credentials -> {
-				connOpts.setUserName(credentials.getUsername());
-				connOpts.setPassword(credentials.getPassword().toCharArray());
-			});
-			
+			mqtt.getUsername().ifPresent(connOpts::setUserName);
+			mqtt.getPassword().map(String::toCharArray).ifPresent(connOpts::setPassword);
+
 			result.connect(connOpts);
-			
-			return Optional.of(result);
+			LOGGER.info("Connecting MQTT client DONE");
+
+			return Optional.of(result).filter(MqttClient::isConnected);
 		} catch (final MqttException e) {
-			LOGGER.error(e.getMessage(), e);
+			LOGGER.error("MQTT Connection failed.", e);
 			return Optional.empty();
+		}
+	}
+
+	private Optional<MqttClient> handleReconnect(MqttClient mqttClient) throws MqttException {
+		if (!mqttClient.isConnected()) {
+			LOGGER.info("MQTT Reconnect");
+			mqttClient.reconnect();
+			LOGGER.info("MQTT Reconnect done");
+			return Optional.of(mqttClient);
+		}
+		else {
+			return client;
 		}
 	}
 

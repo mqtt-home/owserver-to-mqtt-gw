@@ -16,3 +16,6 @@ config.json
 .recommenders
 .sonarlint
 .settings
+/.idea
+.DS_Store
+*.iml

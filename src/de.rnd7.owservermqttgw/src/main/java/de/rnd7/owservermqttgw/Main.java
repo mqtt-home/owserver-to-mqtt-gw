@@ -37,6 +37,8 @@ public class Main {
 
 	@SuppressWarnings("squid:S2189")
 	public Main(final Config config) {
+		LOGGER.debug("Debug enabled");
+		LOGGER.info("Info enabled");
 		this.config = config;
 		this.eventBus.register(new GwMqttClient(config));
 		

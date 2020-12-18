@@ -3,10 +3,7 @@ package de.rnd7.owservermqttgw.mqtt;
 import java.util.Optional;
 
 import de.rnd7.owservermqttgw.config.ConfigMqtt;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +35,22 @@ public class GwMqttClient {
 
 			LOGGER.info("Connecting MQTT client");
 			final MqttClient result = new MqttClient(mqtt.getUrl(), mqtt.getClientId(), this.persistence);
+			result.setCallback(new MqttCallback() {
+				@Override
+				public void connectionLost(Throwable cause) {
+					LOGGER.error(cause.getMessage(), cause);
+				}
+
+				@Override
+				public void messageArrived(String topic, MqttMessage message) throws Exception {
+					// do nothing
+				}
+
+				@Override
+				public void deliveryComplete(IMqttDeliveryToken token) {
+					// do nothing
+				}
+			});
 
 			final MqttConnectOptions connOpts = new MqttConnectOptions();
 			connOpts.setCleanSession(true);
@@ -49,20 +62,13 @@ public class GwMqttClient {
 
 			return Optional.of(result).filter(MqttClient::isConnected);
 		} catch (final MqttException e) {
-			LOGGER.error("MQTT Connection failed.", e);
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug(e.getMessage(), e);
+			}
+			else {
+				LOGGER.error(e.getMessage());
+			}
 			return Optional.empty();
-		}
-	}
-
-	private Optional<MqttClient> handleReconnect(MqttClient mqttClient) throws MqttException {
-		if (!mqttClient.isConnected()) {
-			LOGGER.info("MQTT Reconnect");
-			mqttClient.reconnect();
-			LOGGER.info("MQTT Reconnect done");
-			return Optional.of(mqttClient);
-		}
-		else {
-			return client;
 		}
 	}
 
@@ -90,7 +96,7 @@ public class GwMqttClient {
 		final String topic = message.getTopic();
 		final String valueString = message.getValueString();
 		
-		LOGGER.info("{} = {}", topic, valueString);
+		LOGGER.debug("{} = {}", topic, valueString);
 		
 		this.publish(topic, valueString);
 	}

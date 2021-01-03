@@ -2,6 +2,38 @@
 
 This project converts temperature sensor messages from the OWServer to mqtt.
 
+## Docker Compose Examples
+
+### pharndt/ds9490r-owfs
+
+```
+owfs:
+  privileged: true # usb access
+  hostname: owfs
+  image: pharndt/ds9490r-owfs
+  expose:
+      - "2121"
+  ports:
+      - "2121:2121"
+  volumes:
+    - /dev/bus/usb:/dev/bus/usb
+  restart: always
+```
+
+### owservermqtt
+```
+owservermqtt:
+  hostname: owservermqtt
+  image: pharndt/owservermqtt:1.0.2
+  volumes:
+   - ./config/heizung:/var/lib/owserver-to-mqtt-gw:ro
+  restart: always
+  depends_on:
+   - owfs
+   - mosquitto
+```
+
+
 ## Installation
 
 Checkout `production` and place a configuration in the config folder.

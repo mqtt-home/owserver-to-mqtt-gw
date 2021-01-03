@@ -1,6 +1,5 @@
 FROM ubuntu
 
-
 LABEL maintainer="Philipp Arndt <2f.mail@gmx.de>"
 LABEL version="1.0"
 LABEL description="1wire docker"

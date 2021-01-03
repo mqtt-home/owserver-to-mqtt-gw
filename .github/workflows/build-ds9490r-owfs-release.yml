@@ -29,11 +29,11 @@ jobs:
         with:
           context: ./busmaster
           file: ./busmaster/Dockerfile
-          platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            pharndt/owservermqtt:latest
-            pharndt/owservermqtt:1.0.${{ github.run_number }}
+            pharndt/ds9490r-owfs:latest
+            pharndt/ds9490r-owfs:1.0.${{ github.run_number }}
 
       - name: Create Release
         id: create_release

@@ -1,4 +1,5 @@
 # owserver-to-mqtt-gw
+[![mqtt-smarthome](https://img.shields.io/badge/mqtt-smarthome-blue.svg)](https://github.com/mqtt-smarthome/mqtt-smarthome)
 
 This project converts temperature sensor messages from the OWServer to mqtt.
 

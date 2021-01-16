@@ -51,7 +51,7 @@ See [example configuration](config-example.json) for full example.
 | qos              | 0, 1, 2                         | `2`                |
 | deduplicate      | Deduplicate messages            | `false`            |
 
-# owserver configuration
+# OWServer configuration
 
 | parameter | description             |
 | --------- | ----------------------- |

@@ -35,18 +35,18 @@ public class OWServerService {
         this.sensors = convertSensors(config.getSensors());
     }
 
-    private static Collection<Sensor> convertSensors(List<ConfigSensor> sensors) {
+    private static Collection<Sensor> convertSensors(final List<ConfigSensor> sensors) {
         return sensors.stream()
-                .map(sensor -> new Sensor(sensor.getUid(), sensor.getTopic()))
-                .collect(Collectors.toList());
+            .map(sensor -> new Sensor(sensor.getUid(), sensor.getTopic()))
+            .collect(Collectors.toList());
     }
 
-    public void start(Duration pollingInterval) {
+    public void start(final Duration pollingInterval) {
         final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(this::exec,
-                0,
-                pollingInterval.getSeconds(),
-                TimeUnit.SECONDS);
+            0,
+            pollingInterval.getSeconds(),
+            TimeUnit.SECONDS);
     }
 
     private void exec() {
@@ -59,9 +59,8 @@ public class OWServerService {
                 if (isValidTemperature(temperature)) {
                     Events.post(createMessage(sensor, temperature, humidity));
                 }
-            }
-            catch (IOException e) {
-                LOGGER.error("Error reading sensor: " + sensor.getUuid() +" " + e.getMessage());
+            } catch (IOException e) {
+                LOGGER.error("Error reading sensor: {} {}", sensor.getUuid(), e.getMessage());
             }
         }
     }
@@ -70,7 +69,7 @@ public class OWServerService {
         return temperature != null && temperature > -199;
     }
 
-    private Message createMessage(Sensor sensor, Double temperature, Double humidity) {
+    private Message createMessage(final Sensor sensor, final Double temperature, final Double humidity) {
         return new SensorJsonMessage(sensor.getTopic(), temperature, humidity);
     }
 

@@ -3,28 +3,28 @@ package de.rnd7.owservermqttgw.messages;
 import org.json.JSONObject;
 
 public class SensorJsonMessage extends Message {
-	
-	private Double temperature;
-	private Double humidity;
 
-	public SensorJsonMessage(String topic, Double temperature, Double humidity) {
-		super(topic);
-		this.humidity = humidity;
-		this.temperature = temperature;
-	}
+    private final Double temperature;
+    private final Double humidity;
 
-	public String getValueString() {
-		JSONObject jsonObject = new JSONObject();
+    public SensorJsonMessage(final String topic, final Double temperature, final Double humidity) {
+        super(topic);
+        this.humidity = humidity;
+        this.temperature = temperature;
+    }
 
-		if (temperature != null) {
-			jsonObject.put("temperature", temperature);
-		}
+    public String getValueString() {
+        final JSONObject jsonObject = new JSONObject();
 
-		if (humidity != null) {
-			jsonObject.put("humidity", humidity);
-		}
+        if (temperature != null) {
+            jsonObject.put("temperature", temperature);
+        }
 
-		return jsonObject.toString();
-	}
+        if (humidity != null) {
+            jsonObject.put("humidity", humidity);
+        }
+
+        return jsonObject.toString();
+    }
 
 }

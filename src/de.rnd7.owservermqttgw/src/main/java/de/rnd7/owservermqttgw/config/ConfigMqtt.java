@@ -1,4 +1,5 @@
 package de.rnd7.owservermqttgw.config;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.time.Duration;

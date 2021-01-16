@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-  heizung:
-    hostname: owservermqtt
-    image: pharndt/owservermqtt
-    volumes:
-     - ./config:/var/lib/owserver-to-mqtt-gw:ro
-    restart: always 
+    heizung:
+        hostname: owservermqtt
+        image: pharndt/owservermqtt
+        volumes:
+            - ./config:/var/lib/owserver-to-mqtt-gw:ro
+        restart: always

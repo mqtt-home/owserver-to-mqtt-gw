@@ -10,7 +10,7 @@ import java.time.Duration;
 
 public class DurationDeserializer implements JsonDeserializer<Duration> {
     @Override
-    public Duration deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Duration deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) throws JsonParseException {
         return Duration.ofSeconds(json.getAsInt());
     }
 }

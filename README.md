@@ -1,4 +1,5 @@
 # owserver-to-mqtt-gw
+
 [![mqtt-smarthome](https://img.shields.io/badge/mqtt-smarthome-blue.svg)](https://github.com/mqtt-smarthome/mqtt-smarthome)
 
 This project converts temperature sensor messages from the OWServer to mqtt.
@@ -22,6 +23,7 @@ owfs:
 ```
 
 ### owservermqtt
+
 ```
 owservermqtt:
   hostname: owservermqtt
@@ -34,7 +36,6 @@ owservermqtt:
    - mosquitto
 ```
 
-
 ## Installation
 
 Checkout `production` and place a configuration in the config folder.
@@ -42,6 +43,7 @@ Checkout `production` and place a configuration in the config folder.
 Run `docker-compose up` to start
 
 ## Configuration
+
 See [example configuration](config-example.json) for full example.
 
 ```json

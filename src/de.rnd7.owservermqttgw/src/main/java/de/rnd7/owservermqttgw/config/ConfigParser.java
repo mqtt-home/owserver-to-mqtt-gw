@@ -12,66 +12,22 @@ import com.google.gson.GsonBuilder;
 import org.apache.commons.io.IOUtils;
 
 public class ConfigParser {
-	/*
-	private static final String FULL_MESSAGE_TOPIC = "full-message-topic";
-	private static final String MESSAGE_INTERVAL = "message-interval";
-	private static final String MESSAGE_TYPE = "message-type";
-	private static final String USERNAME = "username";
-	private static final String PASSWORD = "password";
-*/
+    private ConfigParser() {
 
-	private ConfigParser() {
-		
-	}
-	public static Config parse(final File file) throws IOException {
-		try (InputStream in = new FileInputStream(file)) {
-			return parse(in);
-		}
-	}
+    }
 
-	public static Config parse(final InputStream in) throws IOException {
-		final String json = IOUtils.toString(in, StandardCharsets.UTF_8);
-		final Gson gson = new GsonBuilder()
-				.registerTypeAdapter(Duration.class, new DurationDeserializer())
-				.create();
+    public static Config parse(final File file) throws IOException {
+        try (InputStream in = new FileInputStream(file)) {
+            return parse(in);
+        }
+    }
 
-		return gson.fromJson(json, Config.class);
-	}
-	/*
-	public static Config parse(final File file) throws IOException {
-		try (InputStream in = new FileInputStream(file)) {
-			return parse(in);
-		}
-	}
-	
-	public static Config parse(final InputStream in) throws IOException {
-		final Config config = new Config();
-		
-		final JSONObject jsonObject = new JSONObject(IOUtils.toString(in, StandardCharsets.UTF_8));
-		config.setServer(jsonObject.getString("server"));
-		config.setMqttBroker(jsonObject.getString("mqtt-url"));
-		config.setPollingInterval(Duration.ofSeconds(jsonObject.getInt(MESSAGE_INTERVAL)));
-		
-		if (jsonObject.has(FULL_MESSAGE_TOPIC)) {
-			config.setFullMessageTopic(jsonObject.getString(FULL_MESSAGE_TOPIC));
-		}
-		if (jsonObject.has(USERNAME)) {
-			config.setUsername(jsonObject.getString(USERNAME));
-		}
-		if (jsonObject.has(PASSWORD)) {
-			config.setPassword(jsonObject.getString(PASSWORD));
-		}
-		
-		config.setJsonMessages(jsonObject.has(MESSAGE_TYPE) && jsonObject.getString(MESSAGE_TYPE).toLowerCase().equals("json"));
-		
-		
-		final JSONObject mapping = (JSONObject) jsonObject.get("sensors");
-		
-		for (final String uid : JSONObject.getNames(mapping)) {
-			config.addSensor(new Sensor(uid, mapping.getString(uid)));	
-		}
-		
-		return config;
+    public static Config parse(final InputStream in) throws IOException {
+        final String json = IOUtils.toString(in, StandardCharsets.UTF_8);
+        final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Duration.class, new DurationDeserializer())
+            .create();
 
-	}*/
+        return gson.fromJson(json, Config.class);
+    }
 }

@@ -1,13 +1,13 @@
 version: '3.3'
 
 services:
-  ds9490r-owfs:
-    privileged: true # usb access
-    hostname: ds9490r-owfs
-    image: pharndt/ds9490r-owfs
-    expose:
-        - "2121"
-    ports:
-        - "2121:2121"
-    volumes:
-     - /dev/bus/usb:/dev/bus/usb
+    ds9490r-owfs:
+        privileged: true # usb access
+        hostname: ds9490r-owfs
+        image: pharndt/ds9490r-owfs
+        expose:
+            - "2121"
+        ports:
+            - "2121:2121"
+        volumes:
+            - /dev/bus/usb:/dev/bus/usb

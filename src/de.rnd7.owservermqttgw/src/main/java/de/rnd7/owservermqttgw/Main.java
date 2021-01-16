@@ -11,32 +11,32 @@ import de.rnd7.owservermqttgw.config.ConfigParser;
 import de.rnd7.owservermqttgw.mqtt.GwMqttClient;
 
 public class Main {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-	private final Config config;
+    private final Config config;
 
-	public Main(final Config config) {
-		LOGGER.debug("Debug enabled");
-		LOGGER.info("Info enabled");
-		this.config = config;
-		Events.register(new GwMqttClient(config));
+    public Main(final Config config) {
+        LOGGER.debug("Debug enabled");
+        LOGGER.info("Info enabled");
+        this.config = config;
+        Events.register(new GwMqttClient(config));
 
-		try {
-			new OWServerService(config.getOwServer(), config.getMqtt().isDeduplicate())
-					.start(config.getMqtt().getPollingInterval());
+        try {
+            new OWServerService(config.getOwServer(), config.getMqtt().isDeduplicate())
+                .start(config.getMqtt().getPollingInterval());
 
-		} catch (final Exception e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-	}
+        } catch (final Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
 
-	public static void main(String[] args) throws Exception {
-		if (args.length != 1) {
-			LOGGER.error("Expected configuration file as argument");
-			return;
-		}
-		
-		new Main(ConfigParser.parse(new File(args[0])));
-	}
+    public static void main(final String[] args) throws Exception {
+        if (args.length != 1) {
+            LOGGER.error("Expected configuration file as argument");
+            return;
+        }
+
+        new Main(ConfigParser.parse(new File(args[0])));
+    }
 
 }

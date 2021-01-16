@@ -1,14 +1,18 @@
 {
-	"mqtt": {
-		"url": "tcp://localhost:1883"
-	},
-
-	"owserver": {
-		"url": "http://localhost:2121",
-
-		"sensors": [
-			{ "uid": "28.FF1122334455", "topic": "home/sensor_a" },
-			{ "uid": "28.FF2233445566", "topic": "home/sensor_b" }
-		]
-	}
+    "mqtt": {
+        "url": "tcp://localhost:1883"
+    },
+    "owserver": {
+        "url": "http://localhost:2121",
+        "sensors": [
+            {
+                "uid": "28.FF1122334455",
+                "topic": "home/sensor_a"
+            },
+            {
+                "uid": "28.FF2233445566",
+                "topic": "home/sensor_b"
+            }
+        ]
+    }
 }

@@ -1,17 +1,17 @@
 package de.rnd7.owservermqttgw.messages;
 
 public abstract class Message {
-	
-	private String topic;
 
-	public Message(String topic) {
-		this.topic = topic;
-	}
+    private String topic;
 
-	public String getTopic() {
-		return topic;
-	}
+    public Message(final String topic) {
+        this.topic = topic;
+    }
 
-	public abstract String getValueString();
+    public String getTopic() {
+        return topic;
+    }
+
+    public abstract String getValueString();
 
 }

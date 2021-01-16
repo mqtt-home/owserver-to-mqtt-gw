@@ -1,24 +1,24 @@
 {
-	"mqtt": {
-		"url": "tcp://localhost:1883",
-
-		"message-interval": 60,
-
-		"username": "MaxMustermann",
-		"password": "Geheim!",
-
-		"client-id": "client-id",
-
-		"qos": 1,
-		"retain": true
-	},
-
-	"owserver": {
-		"url": "http://localhost:2121",
-
-		"sensors": [
-			{ "uid": "28.FF1122334455", "topic": "home/sensor_a" },
-			{ "uid": "28.FF2233445566", "topic": "home/sensor_b" }
-		]
-	}
+    "mqtt": {
+        "url": "tcp://localhost:1883",
+        "message-interval": 60,
+        "username": "MaxMustermann",
+        "password": "Geheim!",
+        "client-id": "client-id",
+        "qos": 1,
+        "retain": true
+    },
+    "owserver": {
+        "url": "http://localhost:2121",
+        "sensors": [
+            {
+                "uid": "28.FF1122334455",
+                "topic": "home/sensor_a"
+            },
+            {
+                "uid": "28.FF2233445566",
+                "topic": "home/sensor_b"
+            }
+        ]
+    }
 }

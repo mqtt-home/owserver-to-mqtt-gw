@@ -38,7 +38,7 @@ See [example configuration](config-example.json) for full example.
 }
 ```
 
-# mqtt configuration
+# MQTT configuration
 
 | parameter        | description                     | default            |
 | ---------------- | ------------------------------- | ------------------ |

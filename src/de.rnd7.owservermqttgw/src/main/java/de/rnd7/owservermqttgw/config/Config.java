@@ -1,10 +1,5 @@
 package de.rnd7.owservermqttgw.config;
 
-import de.rnd7.owservermqttgw.Sensor;
-
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 public class Config {
 
 	private ConfigMqtt mqtt = new ConfigMqtt();
@@ -18,9 +13,4 @@ public class Config {
 		return owserver;
 	}
 
-	public Collection<Sensor> getSensors() {
-		return getOwServer().getSensors().stream()
-				.map(sensor -> new Sensor(sensor.getUid(), sensor.getTopic()))
-				.collect(Collectors.toList());
-	}
 }

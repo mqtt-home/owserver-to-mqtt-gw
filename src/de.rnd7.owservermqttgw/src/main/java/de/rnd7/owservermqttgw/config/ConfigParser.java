@@ -10,9 +10,6 @@ import java.time.Duration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.io.IOUtils;
-import org.json.JSONObject;
-
-import de.rnd7.owservermqttgw.Sensor;
 
 public class ConfigParser {
 	/*

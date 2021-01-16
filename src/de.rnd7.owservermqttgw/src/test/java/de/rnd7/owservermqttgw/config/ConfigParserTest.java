@@ -21,7 +21,7 @@ public class ConfigParserTest {
 			assertEquals("http://localhost:2121", config.getOwServer().getUrl());
 			assertEquals("MaxMustermann", config.getMqtt().getUsername().orElse(null));
 			assertEquals("Geheim!", config.getMqtt().getPassword().orElse(null));
-			assertEquals(2, config.getSensors().size());
+			assertEquals(2, config.getOwServer().getSensors().size());
 		}
 	}
 
@@ -36,7 +36,7 @@ public class ConfigParserTest {
 			assertEquals("http://localhost:2121", config.getOwServer().getUrl());
 			assertFalse(config.getMqtt().getUsername().isPresent());
 			assertFalse(config.getMqtt().getPassword().isPresent());
-			assertEquals(2, config.getSensors().size());
+			assertEquals(2, config.getOwServer().getSensors().size());
 		}
 	}
 	

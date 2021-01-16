@@ -11,5 +11,4 @@ public class ConfigSensor {
     public String getTopic() {
         return topic;
     }
-
 }

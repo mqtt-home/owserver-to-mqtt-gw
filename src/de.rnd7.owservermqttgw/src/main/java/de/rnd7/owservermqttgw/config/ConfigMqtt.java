@@ -9,6 +9,7 @@ public class ConfigMqtt {
     private String username;
     private String password;
     private boolean retain = false;
+    private boolean deduplicate = false;
 
     @SerializedName("message-interval")
     private Duration pollingInterval = Duration.ofSeconds(60);
@@ -47,4 +48,7 @@ public class ConfigMqtt {
         return clientId;
     }
 
+    public boolean isDeduplicate() {
+        return deduplicate;
+    }
 }

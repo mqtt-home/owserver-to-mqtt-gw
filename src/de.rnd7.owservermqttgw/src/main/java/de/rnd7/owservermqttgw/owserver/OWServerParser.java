@@ -1,4 +1,4 @@
-package de.rnd7.owservermqttgw;
+package de.rnd7.owservermqttgw.owserver;
 
 import java.util.HashMap;
 import java.util.Map;

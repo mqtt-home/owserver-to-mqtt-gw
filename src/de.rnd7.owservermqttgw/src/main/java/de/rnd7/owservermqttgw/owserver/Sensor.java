@@ -1,4 +1,4 @@
-package de.rnd7.owservermqttgw;
+package de.rnd7.owservermqttgw.owserver;
 
 public class Sensor {
 	private String uuid;

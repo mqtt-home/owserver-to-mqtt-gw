@@ -4,7 +4,7 @@ import de.rnd7.owservermqttgw.Events;
 import de.rnd7.owservermqttgw.config.ConfigOwServer;
 import de.rnd7.owservermqttgw.config.ConfigSensor;
 import de.rnd7.owservermqttgw.messages.Message;
-import de.rnd7.owservermqttgw.messages.SensorJsonMessage;
+import de.rnd7.owservermqttgw.messages.SensorMessage;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +70,7 @@ public class OWServerService {
     }
 
     private Message createMessage(final Sensor sensor, final Double temperature, final Double humidity) {
-        return new SensorJsonMessage(sensor.getTopic(), temperature, humidity);
+        return new SensorMessage(sensor.getTopic(), temperature, humidity);
     }
 
     private static Map<String, Double> readSensor(final String rootUrl, final Sensor sensor) throws IOException {

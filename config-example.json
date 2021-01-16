@@ -6,6 +6,7 @@
         "message-interval": 60,
         "client-id": "owmqtt-example-user",
         "retain": true,
+        "deduplicate": true,
         "qos": 2
     },
     "owserver": {

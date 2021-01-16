@@ -65,7 +65,7 @@ See [example configuration](config-example.json) for full example.
 ```
 owservermqtt:
   hostname: owservermqtt
-  image: pharndt/owservermqtt:1.0.3
+  image: pharndt/owservermqtt:1.0.4
   volumes:
    - ./config/heizung:/var/lib/owserver-to-mqtt-gw:ro
   restart: always

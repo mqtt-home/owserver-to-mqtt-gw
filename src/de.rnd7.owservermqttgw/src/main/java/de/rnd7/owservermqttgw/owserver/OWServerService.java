@@ -1,5 +1,6 @@
 package de.rnd7.owservermqttgw.owserver;
 
+import com.google.common.base.Objects;
 import de.rnd7.owservermqttgw.Events;
 import de.rnd7.owservermqttgw.config.ConfigOwServer;
 import de.rnd7.owservermqttgw.config.ConfigSensor;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -28,6 +30,7 @@ public class OWServerService {
     private final ConfigOwServer config;
     private final boolean deduplicate;
     private final Collection<Sensor> sensors;
+    private final Map<String, String> deduplicationInfo = new HashMap<>();
 
     public OWServerService(final ConfigOwServer config, final boolean deduplicate) {
         this.config = config;
@@ -57,12 +60,27 @@ public class OWServerService {
                 final Double humidity = data.get("humidity");
 
                 if (isValidTemperature(temperature)) {
-                    Events.post(createMessage(sensor, temperature, humidity));
+                    final Message message = createMessage(sensor, temperature, humidity);
+                    if (handleDeduplication(sensor.getUuid(), message)) {
+                        Events.post(message);
+                    }
                 }
             } catch (IOException e) {
                 LOGGER.error("Error reading sensor: {} {}", sensor.getUuid(), e.getMessage());
             }
         }
+    }
+
+    boolean handleDeduplication(final String uid, final Message message) {
+        if (!deduplicate) {
+            return true;
+        }
+
+        final String value = message.getValueString();
+        final String oldValue = deduplicationInfo.get(uid);
+        this.deduplicationInfo.put(uid, value);
+
+        return !Objects.equal(oldValue, value);
     }
 
     private boolean isValidTemperature(final Double temperature) {

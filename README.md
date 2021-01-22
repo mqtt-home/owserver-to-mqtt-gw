@@ -22,13 +22,13 @@ See [example configuration](config-example.json) for full example.
     "username": "myuser",
     "password": "mypassword",
 
-    "message-interval": 60, 
     "deduplicate": true
   },
 
   "owserver": {
     "url": "http://192.168.2.1:2121",
-
+    "polling-interval": 60,
+      
     "sensors": [
       { "uid": "28.AABBCCDDEE01", "topic": "home/temperature/sensor1"  },
       { "uid": "28.AABBCCDDEE02", "topic": "home/temperature/sensor2" },
@@ -45,18 +45,17 @@ See [example configuration](config-example.json) for full example.
 | url              | MQTT Server                     |                    |
 | username         | username for user/password auth | no authentication  |
 | password         | password for user/password auth | no authentication  |
-| message-interval | in seconds                      | `60`               |
 | client-id        |                                 | `owserver-mqtt-gw` |
 | retain           |                                 | `false`            |
 | qos              | 0, 1, 2                         | `2`                |
 | deduplicate      | Deduplicate messages            | `false`            |
-
 # OWServer configuration
 
-| parameter | description             |
-| --------- | ----------------------- |
-| url       | OWServer address        |
-| sensors   | Array of sensor objects |
+| parameter        | description             | default |
+| ---------------- | ----------------------- | ------- |
+| url              | OWServer address        |         |
+| polling-interval | in seconds              | `60`    |
+| sensors          | Array of sensor objects |         |
 
 ## Docker Compose Examples
 

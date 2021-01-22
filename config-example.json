@@ -3,7 +3,6 @@
         "url": "tcp://192.168.2.2:1883",
         "username": "myuser",
         "password": "mypassword",
-        "message-interval": 60,
         "client-id": "owmqtt-example-user",
         "retain": true,
         "deduplicate": true,
@@ -11,6 +10,7 @@
     },
     "owserver": {
         "url": "http://192.168.2.1:2121",
+        "polling-interval": 60,
         "sensors": [
             {
                 "uid": "28.AABBCCDDEE01",

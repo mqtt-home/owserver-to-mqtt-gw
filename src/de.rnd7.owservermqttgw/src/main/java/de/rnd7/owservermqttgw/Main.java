@@ -2,28 +2,30 @@ package de.rnd7.owservermqttgw;
 
 import java.io.File;
 
+import de.rnd7.mqttgateway.GwMqttClient;
+import de.rnd7.mqttgateway.config.ConfigParser;
 import de.rnd7.owservermqttgw.owserver.OWServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.rnd7.owservermqttgw.config.Config;
-import de.rnd7.owservermqttgw.config.ConfigParser;
-import de.rnd7.owservermqttgw.mqtt.GwMqttClient;
 
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    private final Config config;
-
     public Main(final Config config) {
         LOGGER.debug("Debug enabled");
         LOGGER.info("Info enabled");
-        this.config = config;
-        Events.register(new GwMqttClient(config));
+
+        final GwMqttClient client = GwMqttClient.start(config.getMqtt()
+            .setDefaultClientId("owserver-mqtt-gw")
+            .setDefaultTopic("owserver"));
+
+        client.online();
 
         try {
-            new OWServerService(config.getOwServer(), config.getMqtt().isDeduplicate())
-                .start(config.getMqtt().getPollingInterval());
+            new OWServerService(config.getOwServer())
+                .start(config.getOwServer().getPollingInterval());
 
         } catch (final Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -36,7 +38,7 @@ public class Main {
             return;
         }
 
-        new Main(ConfigParser.parse(new File(args[0])));
+        new Main(ConfigParser.parse(new File(args[0]), Config.class));
     }
 
 }

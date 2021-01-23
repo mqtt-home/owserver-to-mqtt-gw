@@ -64,7 +64,7 @@ See [example configuration](config-example.json) for full example.
 ```
 owservermqtt:
   hostname: owservermqtt
-  image: pharndt/owservermqtt:1.0.4
+  image: pharndt/owservermqtt:2.0.1-b6
   volumes:
    - ./config/heizung:/var/lib/owserver-to-mqtt-gw:ro
   restart: always
@@ -79,7 +79,7 @@ owservermqtt:
 owfs:
   privileged: true # usb access
   hostname: owfs
-  image: pharndt/ds9490r-owfs
+  image: pharndt/ds9490r-owfs:2.0.1-b6
   expose:
       - "2121"
   ports:

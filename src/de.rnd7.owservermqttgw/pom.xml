@@ -8,7 +8,6 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>de.rnd7.owservermqttgw</groupId>
     <artifactId>de.rnd7.owservermqttgw</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 

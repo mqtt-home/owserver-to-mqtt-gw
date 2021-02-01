@@ -1,11 +1,9 @@
 package de.rnd7.owservermqttgw.config;
 
-import java.util.Optional;
-
 public class ConfigSensor {
     private String uid;
     private String topic;
-    private String type;
+    private SensorType type = SensorType.temperature_humidity;
     private String key;
 
     public String getUid() {
@@ -16,11 +14,8 @@ public class ConfigSensor {
         return topic;
     }
 
-    public String getType() {
-        // due to compatibility of config files, default is set to TemperatureHumidity
-        final String result = Optional.ofNullable(type).orElse("TemperatureHumidity");
-        
-        return result;
+    public SensorType getType() {
+        return type;
     }
 
     public String getKey() {

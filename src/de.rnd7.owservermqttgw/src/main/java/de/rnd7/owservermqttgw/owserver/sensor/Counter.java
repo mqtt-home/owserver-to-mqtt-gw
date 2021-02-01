@@ -2,14 +2,13 @@ package de.rnd7.owservermqttgw.owserver.sensor;
 
 import de.rnd7.mqttgateway.Events;
 import de.rnd7.owservermqttgw.messages.SensorMessageFactory;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Counter extends Sensor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Counter.class);
+    private static final Logger logger = LoggerFactory.getLogger(Counter.class);
     private final String key;
 
     public Counter(final String uuid, final String topic, final String key) {
@@ -21,7 +20,7 @@ public class Counter extends Sensor {
         return counter != null && counter >= 0;
     }
 
-    public void exec(final Map<String, String> data) throws IOException, NumberFormatException {
+    public void exec(final Map<String, String> data) {
         final Map<String, Object> out = new HashMap<>();
 
         final String valueRaw = data.get(this.key);
@@ -31,10 +30,10 @@ public class Counter extends Sensor {
             if (isValidValue(value)) {
                 out.put("counter", value);
             }
-                Events.post(SensorMessageFactory.create(getTopic(), out));
+            Events.post(SensorMessageFactory.create(getTopic(), out));
         }
         else {
-            // TODO: errorMessage    
+            logger.error("Counter data map does not contain key {}", this.key);
         }
     }
 }

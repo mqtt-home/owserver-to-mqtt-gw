@@ -33,7 +33,7 @@ public class OWServerService {
 
     private static Collection<Sensor> convertSensors(final List<ConfigSensor> sensors) {
         return sensors.stream()
-            .map(sensor -> SensorFactory.createSensor(sensor))
+            .map(SensorFactory::createSensor)
             .collect(Collectors.toList());
     }
 
@@ -50,7 +50,7 @@ public class OWServerService {
             try {
                 final Map<String, String> data = readSensor(this.config.getUrl(), sensor);
                 sensor.exec(data);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 LOGGER.error("Error reading sensor: {} {}", sensor.getUuid(), e.getMessage());
             }
         }

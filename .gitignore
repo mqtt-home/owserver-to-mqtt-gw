@@ -20,3 +20,5 @@ config.json
 /.idea
 .DS_Store
 *.iml
+.project
+.settings

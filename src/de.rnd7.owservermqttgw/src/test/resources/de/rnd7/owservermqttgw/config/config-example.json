@@ -18,7 +18,7 @@
             {
                 "uid": "28.FF2233445566",
                 "topic": "home/sensor_b",
-                "type": "temperature"
+                "type": "temperature_humidity"
             },
             {
                 "uid": "1D.E3E384000003",

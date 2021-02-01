@@ -30,8 +30,8 @@ class ConfigParserTest {
             assertEquals("http://localhost:2121", owServer.getUrl());
             final List<ConfigSensor> sensors = owServer.getSensors();
             assertEquals(3, sensors.size());
-            assertEquals(SensorType.temperature, sensors.get(0).getType());
-            assertEquals(SensorType.temperature_humidity, sensors.get(1).getType());
+            assertEquals(SensorType.temperature_humidity, sensors.get(0).getType());
+            assertEquals(SensorType.temperature, sensors.get(1).getType());
             assertEquals(SensorType.counter, sensors.get(2).getType());
             assertEquals("counter.A", sensors.get(2).getKey());
         }

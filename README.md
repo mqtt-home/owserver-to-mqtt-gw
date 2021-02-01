@@ -59,10 +59,10 @@ See [example configuration](config-example.json) for full example.
 | url              | MQTT Server                     |                    |
 | username         | username for user/password auth | no authentication  |
 | password         | password for user/password auth | no authentication  |
-| client-id        |                                 | `owserver-mqtt-gw` |
-| retain           |                                 | `false`            |
-| qos              | 0, 1, 2                         | `2`                |
+| retain           |                                 | `true`             |
+| qos              | 0, 1, 2                         | `1`                |
 | deduplicate      | Deduplicate messages            | `false`            |
+
 # OWServer configuration
 
 | parameter        | description             | default |

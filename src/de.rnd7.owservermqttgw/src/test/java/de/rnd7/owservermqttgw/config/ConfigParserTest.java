@@ -22,7 +22,6 @@ class ConfigParserTest {
             assertEquals("tcp://localhost:1883", mqtt.getUrl());
             assertTrue(mqtt.isRetain());
             assertEquals(1, mqtt.getQos());
-            assertEquals("client-id", mqtt.getClientId().get());
             assertEquals("MaxMustermann", mqtt.getUsername().orElse(null));
             assertEquals("Geheim!", mqtt.getPassword().orElse(null));
 
@@ -45,7 +44,7 @@ class ConfigParserTest {
 
             assertEquals("tcp://localhost:1883", mqtt.getUrl());
             assertTrue(mqtt.isRetain());
-            assertEquals(2, mqtt.getQos());
+            assertEquals(1, mqtt.getQos());
             assertEquals("http://localhost:2121", config.getOwServer().getUrl());
             assertFalse(mqtt.getUsername().isPresent());
             assertFalse(mqtt.getPassword().isPresent());

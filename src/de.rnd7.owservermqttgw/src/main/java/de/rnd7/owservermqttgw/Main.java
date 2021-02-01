@@ -17,13 +17,13 @@ public class Main {
         LOGGER.debug("Debug enabled");
         LOGGER.info("Info enabled");
 
-        final GwMqttClient client = GwMqttClient.start(config.getMqtt()
-            .setDefaultClientId("owserver-mqtt-gw")
-            .setDefaultTopic("owserver"));
-
-        client.online();
 
         try {
+            final GwMqttClient client = GwMqttClient.start(config.getMqtt()
+                .setDefaultTopic("owserver"));
+
+            client.online();
+
             new OWServerService(config.getOwServer())
                 .start(config.getOwServer().getPollingInterval());
 

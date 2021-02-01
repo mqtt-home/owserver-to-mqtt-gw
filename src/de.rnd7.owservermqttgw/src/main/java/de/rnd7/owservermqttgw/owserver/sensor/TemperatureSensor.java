@@ -18,12 +18,17 @@ public class TemperatureSensor extends Sensor {
     public void exec(final Map<String, String> data) throws IOException, NumberFormatException {
         final Map<String, Object> out = new HashMap<>();
 
-        final Double temperature = Double.valueOf(data.get("temperature"));
+        final String temperatureRaw = data.get("temperature");
 
-        if (isValidTemperature(temperature)) {
-            out.put("temperature", temperature);
+        if (temperatureRaw != null) {
+            final Double temperature = Double.valueOf(temperatureRaw); 
+            if (isValidTemperature(temperature)) {
+                out.put("temperature", temperature);
+            }
+            Events.post(SensorMessageFactory.create(getTopic(), out));
         }
-
-        Events.post(SensorMessageFactory.create(getTopic(), out));
+        else {
+            // TODO: errorMessage    
+        }
     }
 }

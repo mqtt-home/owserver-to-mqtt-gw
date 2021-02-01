@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class OWServerParser {
-    private static final Pattern PATTERN = Pattern.compile("<b>([a-z0-9_]+)</b></td><td>(\\d+\\.?\\d*)</td>",
+    private static final Pattern PATTERN = Pattern.compile("<b>([a-z0-9_\\.]+)</b></td><td>(\\d+(?:\\.\\d+)?)</td>",
         Pattern.CASE_INSENSITIVE);
 
     private OWServerParser() {

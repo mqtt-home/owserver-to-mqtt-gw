@@ -10,15 +10,15 @@ public class SensorFactory {
     public static Sensor createSensor(final ConfigSensor config) {
         final String type = config.getType();
 
-        if (type.equalsIgnoreCase("TemperatureHumidity")) {
+        if (type.equalsIgnoreCase("temperaturehumidity")) {
             return new TemperatureHumiditySensor(config.getUid(), config.getTopic());
         }
-        else if (type.equalsIgnoreCase("Temperature")) {
+        else if (type.equalsIgnoreCase("temperature")) {
             return new TemperatureSensor(config.getUid(), config.getTopic());
         }
-        else if (type.equalsIgnoreCase("Counter")) {
+        else if (type.equalsIgnoreCase("counter")) {
             return new Counter(config.getUid(), config.getTopic(), config.getKey());
         }
-        return new TemperatureHumiditySensor(config.getUid(), config.getTopic());
+        throw new IllegalArgumentException("Should not reach this. Type is not set in configuration and default value is not available");
     }
 }

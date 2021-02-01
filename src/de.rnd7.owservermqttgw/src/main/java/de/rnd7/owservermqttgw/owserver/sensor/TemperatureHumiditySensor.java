@@ -22,16 +22,22 @@ public class TemperatureHumiditySensor extends Sensor {
     public void exec(final Map<String, String> data) throws IOException, NumberFormatException {
         final Map<String, Object> out = new HashMap<>();
 
-        final Double temperature = Double.valueOf(data.get("temperature"));
-        final Double humidity = Double.valueOf(data.get("humidity"));
+        final String temperatureRaw = data.get("temperature");
+        final String humidityRaw = data.get("humidity");
 
-        if (isValidTemperature(temperature)) {
-            out.put("temperature", temperature);
+        if (temperatureRaw != null && humidityRaw != null) {
+            final Double temperature = Double.valueOf(temperatureRaw); 
+            if (isValidTemperature(temperature)) {
+                out.put("temperature", temperature);
+            }
+            final Double humidity = Double.valueOf(humidityRaw); 
+            if (isValidHumidity(humidity)) {
+                out.put("humidity", humidity);
+            }
+            Events.post(SensorMessageFactory.create(getTopic(), out));
         }
-        if (isValidHumidity(humidity)) {
-            out.put("humidity", humidity);
+        else {
+            // TODO: errorMessage    
         }
-
-        Events.post(SensorMessageFactory.create(getTopic(), out));
     }
 }

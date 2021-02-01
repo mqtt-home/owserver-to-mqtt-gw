@@ -13,14 +13,14 @@ class OWServerParser {
 
     }
 
-    static Map<String, Double> parse(final String html) {
+    static Map<String, String> parse(final String html) {
         final Matcher matcher = PATTERN.matcher(html);
-        final Map<String, Double> result = new HashMap<>();
+        final Map<String, String> result = new HashMap<>();
 
         while (matcher.find()) {
             final String key = matcher.group(1);
             final String value = matcher.group(2);
-            result.put(key, Double.parseDouble(value));
+            result.put(key, value);
         }
 
         return result;

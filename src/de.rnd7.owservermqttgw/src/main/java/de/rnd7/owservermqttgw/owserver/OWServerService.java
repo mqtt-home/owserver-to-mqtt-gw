@@ -1,10 +1,8 @@
 package de.rnd7.owservermqttgw.owserver;
 
-import de.rnd7.mqttgateway.Events;
-import de.rnd7.mqttgateway.PublishMessage;
 import de.rnd7.owservermqttgw.config.ConfigOwServer;
 import de.rnd7.owservermqttgw.config.ConfigSensor;
-import de.rnd7.owservermqttgw.messages.SensorMessageFactory;
+import de.rnd7.owservermqttgw.owserver.sensor.Sensor;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +33,7 @@ public class OWServerService {
 
     private static Collection<Sensor> convertSensors(final List<ConfigSensor> sensors) {
         return sensors.stream()
-            .map(sensor -> new Sensor(sensor.getUid(), sensor.getTopic()))
+            .map(sensor -> SensorFactory.createSensor(sensor))
             .collect(Collectors.toList());
     }
 
@@ -50,28 +48,15 @@ public class OWServerService {
     private void exec() {
         for (final Sensor sensor : sensors) {
             try {
-                final Map<String, Double> data = readSensor(this.config.getUrl(), sensor);
-                final Double temperature = data.get("temperature");
-                final Double humidity = data.get("humidity");
-
-                if (isValidTemperature(temperature)) {
-                    Events.post(createMessage(sensor, temperature, humidity));
-                }
+                final Map<String, String> data = readSensor(this.config.getUrl(), sensor);
+                sensor.exec(data);
             } catch (IOException e) {
                 LOGGER.error("Error reading sensor: {} {}", sensor.getUuid(), e.getMessage());
             }
         }
     }
 
-    private boolean isValidTemperature(final Double temperature) {
-        return temperature != null && temperature > -199;
-    }
-
-    private PublishMessage createMessage(final Sensor sensor, final Double temperature, final Double humidity) {
-        return SensorMessageFactory.create(sensor.getTopic(), temperature, humidity);
-    }
-
-    private static Map<String, Double> readSensor(final String rootUrl, final Sensor sensor) throws IOException {
+    private static Map<String, String> readSensor(final String rootUrl, final Sensor sensor) throws IOException {
         try {
             final URL url = new URL(String.format("%s/%s", rootUrl, sensor.getUuid()));
             try (InputStream in = url.openStream()) {
@@ -81,5 +66,4 @@ public class OWServerService {
             throw new IOException(e);
         }
     }
-
 }

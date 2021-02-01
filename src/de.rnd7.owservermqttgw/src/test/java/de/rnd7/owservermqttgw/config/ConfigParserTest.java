@@ -22,7 +22,10 @@ public class ConfigParserTest {
             assertEquals("http://localhost:2121", config.getOwServer().getUrl());
             assertEquals("MaxMustermann", config.getMqtt().getUsername().orElse(null));
             assertEquals("Geheim!", config.getMqtt().getPassword().orElse(null));
-            assertEquals(2, config.getOwServer().getSensors().size());
+            assertEquals(3, config.getOwServer().getSensors().size());
+            assertEquals("temperature", config.getOwServer().getSensors().get(1).getType());
+            assertEquals("counter", config.getOwServer().getSensors().get(2).getType());
+            assertEquals("counter.A", config.getOwServer().getSensors().get(2).getKey());
         }
     }
 

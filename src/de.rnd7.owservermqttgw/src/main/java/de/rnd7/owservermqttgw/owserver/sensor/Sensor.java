@@ -1,6 +1,9 @@
-package de.rnd7.owservermqttgw.owserver;
+package de.rnd7.owservermqttgw.owserver.sensor;
 
-public class Sensor {
+import java.io.IOException;
+import java.util.Map;
+
+public abstract class Sensor {
     private String uuid;
     private String topic;
 
@@ -17,4 +20,5 @@ public class Sensor {
         return topic;
     }
 
+    public abstract void exec(final Map<String, String> data) throws IOException;
 }

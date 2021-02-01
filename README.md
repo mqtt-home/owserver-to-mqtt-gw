@@ -38,6 +38,20 @@ See [example configuration](config-example.json) for full example.
 }
 ```
 
+## Supported sensor types
+
+- temperature
+- temperature_humidity
+- counter
+
+```json
+"sensors": [
+  { "uid": "28.AABBCCDDEE01", "topic": "home/temperature/sensor1", "type": "temperature"  },
+  { "uid": "28.AABBCCDDEE02", "topic": "home/temperature/sensor2", "type": "temperature_humidity" },
+  { "uid": "26.111111111111", "topic": "home/humidity/sensor1",    "type": "counter" }
+]
+```
+
 # MQTT configuration
 
 | parameter        | description                     | default            |

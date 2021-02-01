@@ -1,6 +1,7 @@
 package de.rnd7.owservermqttgw.messages;
 
 import de.rnd7.mqttgateway.PublishMessage;
+import java.util.Map;
 import org.json.JSONObject;
 
 public class SensorMessageFactory {
@@ -9,16 +10,10 @@ public class SensorMessageFactory {
 
     }
 
-    public static PublishMessage create(final String topic, final Double temperature, final Double humidity) {
+    public static PublishMessage create(final String topic, final Map<String, Object> map) {
         final JSONObject jsonObject = new JSONObject();
 
-        if (temperature != null) {
-            jsonObject.put("temperature", temperature);
-        }
-
-        if (humidity != null) {
-            jsonObject.put("humidity", humidity);
-        }
+        map.forEach((k, v) -> { if (v != null) jsonObject.put(k, v); } );
 
         return PublishMessage.absolute(topic, jsonObject.toString());
     }

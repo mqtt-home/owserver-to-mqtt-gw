@@ -19,10 +19,8 @@ public class Main {
 
 
         try {
-            final GwMqttClient client = GwMqttClient.start(config.getMqtt()
+            GwMqttClient.start(config.getMqtt()
                 .setDefaultTopic("owserver"));
-
-            client.online();
 
             new OWServerService(config.getOwServer())
                 .start(config.getOwServer().getPollingInterval());
